@@ -125,28 +125,6 @@ class DatasetPreprocessor:
         np.savez_compressed(out_file, **raw_data)
         logging.info(f"Successfully saved processed dataset to {out_file}")
 
-    def _calculate_and_save_norm_stats(self, raw_data: dict):
-        logging.info("Calculating normalization statistics on the training set...")
-        train_mask = raw_data['split'] == 'train'
-        norm_stats = {}
-        
-        skip_keys = {'rollout_id', 'timestep', 'vehicle_dist_id', 'vehicle_id', 'world_dist_id', 'world_id', 'split'}
-        
-        for key, array in raw_data.items():
-            if key not in skip_keys and np.issubdtype(array.dtype, np.number):
-                train_slice = array[train_mask]
-                if len(train_slice) > 0:
-                    std_val = float(np.std(train_slice))
-                    norm_stats[key] = {
-                        "mean": float(np.mean(train_slice)),
-                        "std": std_val if std_val > 1e-6 else 1.0 
-                    }
-    
-        norm_file = self.processed_dir / "norm_stats.json"
-        with open(norm_file, "w") as f:
-            json.dump(norm_stats, f, indent=4)
-        logging.info(f"Successfully saved normalization statistics to {norm_file}")
-
     def _generate_report(self, total_meta: int, train_ids: Set[int], val_ids: Set[int], test_ids: Set[int], 
                          held_out_v_dists: Set[int], held_out_w_dists: Set[int], 
                          held_out_vehicles: Set[int], held_out_worlds: Set[int], 
@@ -196,7 +174,6 @@ class DatasetPreprocessor:
         meta_df, train_ids, val_ids, test_ids = self._apply_rollout_splits(meta_df, train_eligible)
 
         self._broadcast_and_save(raw_data, meta_df)
-        self._calculate_and_save_norm_stats(raw_data)
         
         self._generate_report(
             total_meta=len(meta_df),

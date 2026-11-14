@@ -1,5 +1,5 @@
 # Custom Additions
-data/
+datasets/
 *venv/*
 artifacts/*
 !artifacts/.gitkeep

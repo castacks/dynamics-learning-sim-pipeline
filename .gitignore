@@ -1,7 +1,8 @@
 # Custom Additions
-datasets/
+/datasets/
 *venv/*
 artifacts/*
+runs/*
 !artifacts/.gitkeep
 .vscode/
 

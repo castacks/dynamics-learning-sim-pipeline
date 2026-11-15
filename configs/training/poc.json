@@ -1,0 +1,39 @@
+{
+    "exp_name": "kbm_baseline_poc",
+    "version": "1.0",
+    "dataset": 
+        {
+            "path": "/Users/trevorchartier/Documents/Career/Research/CMU/AirLabOffRoad/LearningVehichleDynamicsSim/datasets/processed/poc_dataset_v1_3/dataset_split.npz",
+            "features_schema":
+                {
+                    "observable_state": ["v"],
+                    "actions": ["accel", "steering"],
+                    "privileged_terrain_params": ["ground_truth_pitch"],
+                    "targets": ["delta_v", "delta_yaw"]
+                },
+            "training_subset":
+                {
+                    "vehicle_distributions": "all",
+                    "world_distributions": "all",
+                    "vehicles": "all",
+                    "worlds": "all",
+                    "rollouts_per_config": "all"
+                },
+            "history_steps": 10,
+            "future_steps": 1
+        },
+    "model": {
+        "architecture": "BaselineSequenceModel",
+        "encoder_hidden_dim": 64,
+        "decoder_hidden_dim": 64
+    },
+    "training_params": {
+        "device": "cuda",
+        "num_epochs": 50,
+        "learning_rate": 0.001,
+        "checkpoint_freq": 20,
+        "clip_grad_norm": 1.0,
+        "batch_size": 256,
+        "num_workers": 4
+    }
+}

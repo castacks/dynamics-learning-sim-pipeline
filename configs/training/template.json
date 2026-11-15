@@ -1,0 +1,38 @@
+{
+    "exp_name": "Give experiment a name",
+    "version": "Increment this if running similar experiment with small tweaks (document tweaks in description)",
+    "description": "Why are you running this experiment, what changes have you made or what should it accomplish?",
+    "dataset": 
+        {
+            "path": "What is the preprocessed dataset you used",
+            "features_schema":
+                {
+                    "observable_state": [],
+                    "actions": [],
+                    "privileged_terrain_params": [],
+                    "targets": []
+                },
+            "training_subset":
+                {
+                    "vehicle_distributions": "Can either be a list of specific ones, a number, or 'all'",
+                    "world_distributions": "Same as above",
+                    "vehicles": "Same as above",
+                    "worlds": "Same as above",
+                    "rollouts_per_config": "Either a number or 'all'"
+                },
+            "history_steps": "How many steps of context to train on",
+            "future_steps": "How many steps into future for multi-step loss"
+        },
+    "model":
+        {
+            "architecture_name": "What's the model architecture",
+            "architecture_params":
+                {
+                    "n_layers": "FIXME"
+                }
+        },
+    "training_params":
+        {
+            "FIXME: Extract params for training like #epochs, lr, optimizer type stuff, etc as it comes up instead of hardcoding"
+        }
+}

@@ -1,17 +1,3 @@
-"""2. The Pipeline Orchestrator (src/pipelines/training_pipeline.py)
-
-Data Masking: Loads the massive .npz file and applies your training_subset config rules to create a boolean mask, slicing the training data down to exactly what was requested.
-
-Normalization Hand-off: Checks the masked subset. It calculates the mean/std on this specific training subset and holds onto it in memory.
-
-Instantiation: Creates the PyTorch VehicleDynamicsDataset (passing the sliced raw arrays).
-
-Model Creation: Instantiates the requested model architecture, passing the calculated normalization stats directly into the model's constructor.
-
-Dataloaders: Wraps the Dataset in PyTorch DataLoaders.
-
-Handoff: Passes the Model, DataLoaders, and optimization params to the Training Loop."""
-
 import json
 import logging
 import numpy as np
@@ -23,11 +9,6 @@ from torch.utils.data import DataLoader
 from data.datasets.dynamics_dataset import VehicleDynamicsDataset
 from learning.models.baseline import BaselineSequenceModel
 from learning.trainers.baseline import BaselineTrainer
-
-# Note: We will implement these components in the next steps
-# from src.data.datasets.dynamics_dataset import VehicleDynamicsDataset
-# from src.models.model_factory import create_model
-# from src.training.trainer import Trainer
 
 class TrainingPipeline:
     def __init__(self, config: dict):

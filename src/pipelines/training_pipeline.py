@@ -193,7 +193,7 @@ class TrainingPipeline:
             prefetch_factor=2 if num_workers > 0 else None
         )
         val_loader = DataLoader(
-                train_dataset,
+                val_dataset,
                 batch_size=batch_size,
                 shuffle=False,
                 num_workers=num_workers,
